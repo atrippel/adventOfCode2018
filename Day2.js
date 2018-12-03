@@ -57,3 +57,43 @@ const buscarFactores = (cadenas) => {
 
     console.log('Two: ', two, '. Three: ', three, 'Resultado Checksum: ', two*three);
 }
+
+buscarFactores(patrones);
+
+const candidatosConUnaDiferencia = (cadenas) =>{
+    const similares = [];
+
+
+    for(let i = 0;i < cadenas.length; i++){
+        for(let z = 0; z < cadenas.length; z++){
+            if(i!=z && revisarUnaDiferencia(cadenas[i],cadenas[z])){
+                if(!similares.includes(cadenas[i])) similares.push(cadenas[i]);
+                if(!similares.includes(cadenas[z])) similares.push(cadenas[z]);
+            }
+        }
+    }
+    console.log(cadenaDeDistintos(similares));
+}
+
+const revisarUnaDiferencia = (str1,str2) =>{
+    let counter = 0;
+    for(let i = 0; i<str1.split('').length; i++){
+      if (str1.split('')[i] !== str2.split('')[i]){
+        counter += 1;
+      }
+    }
+    return counter === 1 ? true : false;
+}
+
+const cadenaDeDistintos = (cadenas) => {
+    const str1 = cadenas[0].split('');
+    const str2 = cadenas[1].split('');
+    const letrasEnComun = [];
+
+    for(let i = 0; i < str1.length; i++){
+        if(str1[i]==str2[i]){
+            letrasEnComun.push(str1[i]);
+        }
+    }
+    return letrasEnComun.join('');
+}
