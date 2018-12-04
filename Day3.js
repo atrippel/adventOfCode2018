@@ -39,10 +39,11 @@ const parseClaim = (line) => {
     return { id, left, top, width, height }
 }
 
+let fabric = new Array(1000).fill(0).map(() => new Array(1000).fill(0));
 
 const agruparTelas = (input) => {
     const telas = input.map(parseClaim);
-    let fabric = new Array(1000).fill(0).map(() => new Array(1000).fill(0));
+    
     let acc =0;
     telas.forEach(tela => {
         for (let z = tela.top; z<tela.top+tela.height; z++){
@@ -51,10 +52,6 @@ const agruparTelas = (input) => {
             }
         }
     });
-
-    // for(let z =telas[0].top;z <telas[0].top+telas[0].height;z++){
-    //     console.log(fabric[z]);    
-    // }
     
     fabric.forEach(fila => {
         acc+=fila.filter(value => value >1).length;
@@ -62,4 +59,21 @@ const agruparTelas = (input) => {
     console.log(acc);
 }
 
+const verTelaUnica = (input) =>{
+    const telas = input.map(parseClaim);
 
+    telas.forEach(tela => {
+        let intacta = true;
+        for (let z = tela.top; z<tela.top+tela.height; z++){
+            for(let i = tela.left; i<tela.left+tela.width; i++){
+                if(fabric[z][i]!=1) {
+                    intacta = false;
+                };
+            }
+        }
+
+        if (intacta){
+            console.log(tela.id);
+        }
+    });
+}
